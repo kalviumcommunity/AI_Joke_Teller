@@ -33,8 +33,7 @@ Users can:
   - ✅ Correct category
   - ✅ Safe-for-work (SFW)
   - ✅ Maximum 2 sentences
-  - ✅ Non-empty  
-- Animated **Aurora-style UI** with recent joke history.  
+  - ✅ Non-empty    
 - Copy jokes with one click.  
 
 ---
