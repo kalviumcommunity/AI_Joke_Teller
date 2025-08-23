@@ -19,14 +19,14 @@ function promptZeroShot({ category, style }) {
 Keep it SFW and <=2 sentences. Don't repeat jokes.`;
 }
 
-// // One-Shot Prompt
-// function promptOneShot({ category, style }) {
-//   return `Here is an example joke:
-// "Why don't skeletons fight each other? They don't have the guts."
+// One-Shot Prompt
+function promptOneShot({ category, style }) {
+  return `Here is an example joke:
+"Why don't skeletons fight each other? They don't have the guts."
 
-// Now, write one original ${category} joke. ${style ? `Style: ${style}.` : ''} 
-// Keep it funny, SFW, and <=2 sentences.`;
-// }
+Now, write one original ${category} joke. ${style ? `Style: ${style}.` : ''} 
+Keep it funny, SFW, and <=2 sentences.`;
+}
 
 // // Multi-Shot Prompt
 // function promptMultiShot({ category, style }) {
@@ -57,9 +57,9 @@ app.post("/generate", async (req, res) => {
     // Pick prompt based on strategy
     let finalPrompt;
     switch (strategy) {
-    //   case "one":
-    //     finalPrompt = promptOneShot({ category, style });
-    //     break;
+      case "one":
+        finalPrompt = promptOneShot({ category, style });
+        break;
     //   case "multi":
     //     finalPrompt = promptMultiShot({ category, style });
     //     break;
