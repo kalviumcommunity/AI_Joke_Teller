@@ -38,16 +38,16 @@ Now, create one new ${category} joke. ${style ? `Style: ${style}.` : ''}
 Keep it <=2 sentences.`;
 }
 
-// // Reasoned Prompt
-// function promptReasoned({ category, style }) {
-//   return `Think step by step:
-// 1. Recall common setups for ${category} jokes.
-// 2. Pick one that is fresh and funny.
-// 3. Ensure it's <=2 sentences and SFW.
-// 4. Deliver the joke only.
+// Reasoned Prompt
+function promptReasoned({ category, style }) {
+  return `Think step by step:
+1. Recall common setups for ${category} jokes.
+2. Pick one that is fresh and funny.
+3. Ensure it's <=2 sentences and SFW.
+4. Deliver the joke only.
 
-// Now write it ${style ? `in ${style} style.` : ''}`;
-// }
+Now write it ${style ? `in ${style} style.` : ''}`;
+}
 
 // ----------------- ROUTE -----------------
 app.post("/generate", async (req, res) => {
@@ -63,9 +63,9 @@ app.post("/generate", async (req, res) => {
       case "multi":
         finalPrompt = promptMultiShot({ category, style });
         break;
-    //   case "reasoned":
-    //     finalPrompt = promptReasoned({ category, style });
-    //     break;
+      case "reasoned":
+        finalPrompt = promptReasoned({ category, style });
+        break;
       default:
         finalPrompt = promptZeroShot({ category, style });
     }
