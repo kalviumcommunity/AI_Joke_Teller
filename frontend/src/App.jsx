@@ -1,17 +1,18 @@
 import { useState } from "react";
-import "./App.css"; // import CSS file
+import "./App.css";
 
 export default function App() {
   const [category, setCategory] = useState("Programming");
   const [style, setStyle] = useState("");
   const [strategy, setStrategy] = useState("zero");
+  const [temperature, setTemperature] = useState(0.7); // 🔥 new state
   const [joke, setJoke] = useState("");
 
   const generateJoke = async () => {
     const res = await fetch("http://localhost:3001/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ category, style, strategy }),
+      body: JSON.stringify({ category, style, strategy, temperature }), // send it
     });
     const data = await res.json();
     setJoke(data.joke || "No joke found 😅");
@@ -46,6 +47,20 @@ export default function App() {
           <option value="multi">Multi-Shot</option>
           <option value="reasoned">Reasoned</option>
         </select>
+
+ 
+        <label className="label">
+          Creativity (Temperature): {temperature}
+        </label>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.1"
+          value={temperature}
+          onChange={(e) => setTemperature(parseFloat(e.target.value))}
+          className="slider"
+        />
 
         <button onClick={generateJoke} className="button">
           Generate Joke

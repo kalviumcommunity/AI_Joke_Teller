@@ -66,3 +66,24 @@ body {
   font-weight: bold;
   margin-bottom: 8px;
 }
+
+/* ...keep your previous CSS ... */
+
+.tempRow {
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.label { color: #e5e7eb; }
+
+.slider {
+  width: 100%;
+}
+
+.tempHints {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #9ca3af;
+}
