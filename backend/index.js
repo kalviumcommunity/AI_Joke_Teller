@@ -52,7 +52,7 @@ Now write it ${style ? `in ${style} style.` : ''}`;
 // ----------------- ROUTE -----------------
 app.post("/generate", async (req, res) => {
   try {
-       const { category, style, strategy = "zero", temperature = 0.7 } = req.body;
+const { category, style, strategy = "zero", temperature = 0.7, topP = 0.9 } = req.body;
 
     // Pick prompt based on strategy
     let finalPrompt;
@@ -73,11 +73,11 @@ app.post("/generate", async (req, res) => {
     const model = genAI.getGenerativeModel({ model: MODEL });
      const result = await model.generateContent({
       contents: [{ role: "user", parts: [{ text: finalPrompt }] }],
-      generationConfig: { temperature },
+      generationConfig: { temperature, topP },
     });
     const joke = result.response.text();
 
-    res.json({ joke, strategy });
+    res.json({ joke, strategy, temperature, topP });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Something went wrong" });
