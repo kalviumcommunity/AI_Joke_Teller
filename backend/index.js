@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Gemini setup
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const MODEL = "gemini-1.5-flash";
+const MODEL = "gemini-1.5-flash-8b";
 
 // ----------------- STRATEGIES -----------------
 
@@ -28,15 +28,15 @@ Now, write one original ${category} joke. ${style ? `Style: ${style}.` : ''}
 Keep it funny, SFW, and <=2 sentences.`;
 }
 
-// // Multi-Shot Prompt
-// function promptMultiShot({ category, style }) {
-//   return `Examples:
-// 1. "I asked my dog what's two minus two. He said nothing."
-// 2. "Parallel lines have so much in common… it’s a shame they’ll never meet."
+// Multi-Shot Prompt
+function promptMultiShot({ category, style }) {
+  return `Examples:
+1. "I asked my dog what's two minus two. He said nothing."
+2. "Parallel lines have so much in common… it's a shame they'll never meet."
 
-// Now, create one new ${category} joke. ${style ? `Style: ${style}.` : ''} 
-// Keep it <=2 sentences.`;
-// }
+Now, create one new ${category} joke. ${style ? `Style: ${style}.` : ''} 
+Keep it <=2 sentences.`;
+}
 
 // // Reasoned Prompt
 // function promptReasoned({ category, style }) {
@@ -60,9 +60,9 @@ app.post("/generate", async (req, res) => {
       case "one":
         finalPrompt = promptOneShot({ category, style });
         break;
-    //   case "multi":
-    //     finalPrompt = promptMultiShot({ category, style });
-    //     break;
+      case "multi":
+        finalPrompt = promptMultiShot({ category, style });
+        break;
     //   case "reasoned":
     //     finalPrompt = promptReasoned({ category, style });
     //     break;
