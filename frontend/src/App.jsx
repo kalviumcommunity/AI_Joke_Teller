@@ -7,13 +7,13 @@ export default function App() {
   const [strategy, setStrategy] = useState("zero");
   const [temperature, setTemperature] = useState(0.7); 
   const [joke, setJoke] = useState("");
-    const [topP, setTopP] = useState(0.9);
+    const [topK, setTopK] = useState(40);
 
   const generateJoke = async () => {
     const res = await fetch("http://localhost:3001/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ category, style, strategy, temperature, topP  }), // send it
+      body: JSON.stringify({ category, style, strategy, temperature, topK  }), // send it
     });
     const data = await res.json();
     setJoke(data.joke || "No joke found 😅");
@@ -64,15 +64,15 @@ export default function App() {
         />
 
          <label className="label">
-          Probability Mass (Top-P): {topP}
+          Probability Mass (Top-K): {topK}
         </label>
         <input
           type="range"
-          min="0.1"
-          max="1"
-          step="0.1"
-          value={topP}
-          onChange={(e) => setTopP(parseFloat(e.target.value))}
+          min="1"
+          max="40"
+          step="1"
+          value={topK}
+          onChange={(e) => setTopK(parseInt(e.target.value))}
           className="slider"
         />
 
